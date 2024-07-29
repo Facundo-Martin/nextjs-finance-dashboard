@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+The goal of this project is to create a Next.js application using Hono on the backend and deploy it to Cloudflare pages.
+
+Front-end wise... etc
+
+Potential issues: BE will still be deployed in one location, not on the edge. So latency will still suck.
+
 ## Getting Started
 
 First, run the development server:
