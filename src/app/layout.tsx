@@ -4,6 +4,7 @@ import "./globals.css";
 import {
   ClerkProvider,
   SignInButton,
+  SignOutButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -24,6 +25,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <SignInButton>Sign in</SignInButton>
+        <SignOutButton>Sign out</SignOutButton>
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
