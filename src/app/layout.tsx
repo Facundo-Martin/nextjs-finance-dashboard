@@ -23,10 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <html lang="en">
-        <SignInButton>Sign in</SignInButton>
-        <SignOutButton>Sign out</SignOutButton>
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
