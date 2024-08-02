@@ -1,4 +1,5 @@
 import { AccountForm } from "@/features/accounts/components/account-form";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 import { useNewAccountStore } from "@/features/accounts/hooks/use-new-accounts";
 
 import {
@@ -16,9 +17,15 @@ type FormValues = z.input<typeof formSchema>;
 
 export function NewAccountSheet() {
   const { isOpen, onClose } = useNewAccountStore();
+  const { mutate: createAccount, isPending } = useCreateAccount();
 
+  // TODO: Maybe move this functionality down to the form itself rather than passing it down as props... not sure if I'll reuse this AccountForm or not
   function onSubmit(values: FormValues) {
-    console.log({ values });
+    createAccount(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   }
 
   return (
@@ -32,7 +39,7 @@ export function NewAccountSheet() {
         </SheetHeader>
         <AccountForm
           onSubmit={onSubmit}
-          disabled={false}
+          disabled={isPending}
           defaultValues={{ name: "Bank" }}
         />
       </SheetContent>
