@@ -9,37 +9,12 @@ import { DataTable } from "@/components/data-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./components/columns";
 import { Skeleton } from "@/components/ui/skeleton";
-
-// const data = [
-//   {
-//     id: "728ed52f",
-//     amount: 100,
-//     status: "pending",
-//     email: "m@example.com",
-//   },
-//   {
-//     id: "728ed52f",
-//     amount: 50,
-//     status: "success",
-//     email: "a@example.com",
-//   },
-//   {
-//     id: "728ed52f",
-//     amount: 250,
-//     status: "pending",
-//     email: "d@example.com",
-//   },
-//   {
-//     id: "728ed52f",
-//     amount: 100,
-//     status: "pending",
-//     email: "z@example.com",
-//   },
-//   // ...
-// ];
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete";
 
 export default function AccountsPage() {
   const { data: accounts, isLoading } = useGetAccounts();
+  const { mutate: deleteAccounts, isPending } = useBulkDeleteAccounts();
+
   const { onOpen } = useNewAccountStore();
 
   if (isLoading)
@@ -73,8 +48,11 @@ export default function AccountsPage() {
             columns={columns}
             data={accounts ?? []}
             filterKey="email"
-            onDelete={() => null}
-            disabled={false}
+            // Note: row.id simply returns the table ui component id, whereas row.original.id returns the id coming from the data we're passing down (in this case accounts)
+            onDelete={(rows) => {
+              deleteAccounts({ ids: rows.map((x) => x.original.id) });
+            }}
+            disabled={isPending || isLoading}
           />
         </CardContent>
       </Card>
