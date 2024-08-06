@@ -7,35 +7,35 @@ import { useNewAccountStore } from "@/features/accounts/hooks/use-new-accounts";
 import { PlusIcon } from "lucide-react";
 import { DataTable } from "@/components/data-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { columns, Payment } from "./components/columns";
+import { columns } from "./components/columns";
 
-const data: Payment[] = [
-  {
-    id: "728ed52f",
-    amount: 100,
-    status: "pending",
-    email: "m@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 50,
-    status: "success",
-    email: "a@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 250,
-    status: "pending",
-    email: "d@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 100,
-    status: "pending",
-    email: "z@example.com",
-  },
-  // ...
-];
+// const data = [
+//   {
+//     id: "728ed52f",
+//     amount: 100,
+//     status: "pending",
+//     email: "m@example.com",
+//   },
+//   {
+//     id: "728ed52f",
+//     amount: 50,
+//     status: "success",
+//     email: "a@example.com",
+//   },
+//   {
+//     id: "728ed52f",
+//     amount: 250,
+//     status: "pending",
+//     email: "d@example.com",
+//   },
+//   {
+//     id: "728ed52f",
+//     amount: 100,
+//     status: "pending",
+//     email: "z@example.com",
+//   },
+//   // ...
+// ];
 
 export default function AccountsPage() {
   const { data: accounts, isLoading } = useGetAccounts();
@@ -56,7 +56,7 @@ export default function AccountsPage() {
         <CardContent>
           <DataTable
             columns={columns}
-            data={data}
+            data={accounts ?? []}
             filterKey="email"
             onDelete={() => null}
             disabled={false}
